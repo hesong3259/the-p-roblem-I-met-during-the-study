@@ -1,0 +1,15 @@
+如何使用第三方模块：
+1安装完之后在要使用的地方：
+import sys 
+sys.path.append('your module path')
+import module|||import function|class|something from your module
+
+#then  you   can  use  it  !!!   try  it 
+ 
+2.the second way :
+you can add the module path to the system  environment variable
+
+you can do the step:
+1)creat a new system environment variable named PYTHONPATH
+2)to add the path of you lib and module to it (if you don't the format of it,just look at the environment variable of PATH^_^)
+
