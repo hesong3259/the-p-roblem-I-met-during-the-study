@@ -1,0 +1,103 @@
+#function 1
+class Student(object): 
+	def get_score(self):
+		return self._score
+	def set_score(self,value):
+		if not isinstance(value,int):
+			raise ValueError('score must be an integer!')
+		if value<0 or value>100:
+			raise ValurErro('score must between 0~10')
+		self._score=value
+		
+#function 2		
+class Student(object):    
+	@property
+	def score(self):
+		return self._score
+	@score.setter
+	def score(self,value):
+		if not isinstance(value,int):
+			raise ValueError('score must be an integeer!')
+		if value < 0 or value >100:
+			raise ValueError('score must between 0~10')
+		self._score=value
+		
+		
+		
+"""to compare  the two code, let's learn how the '@property' work
+at funtion 1 if we need to give a value of score  we need print the under code:
+s=Student()
+s.set_score(30)  #there  the  score's value is 30  if we need print the value  wo must do:
+s.get_score()    #the  the score value will be print out
+
+
+at function 2 if we need to give a value to score  we do :
+s=Student()
+s.score=70       #there  the score get the value of 70  we know that the function 2 has not the 'set_score' function. how can this happen?
+s.score          #amazing! wo kan see that this way  the value of score is printed out.how it work
+
+let's search for the internet  to see how @property do this work
+1.from http://blog.csdn.net/elevenqiao/article/details/6796770
+@property 可以将python定义的函数“当做”属性访问，从而提供更加友好访问方式，但是有时候setter/getter也是需要的，我们视具体情况吧
+
+2.from the Python v2.72 document.there is a very detail description 
+property([fget[, fset[, fdel[, doc]]]]) 
+Return a property attribute for new-style classes (classes that derive from object).
+
+fget is a function for getting an attribute value, likewise fset is a function for setting, and fdel a function for del’ing, an attribute. Typical use is to define a managed attribute x:
+
+class C(object):
+    def __init__(self):
+        self._x = None
+
+    def getx(self):
+        return self._x
+    def setx(self, value):
+        self._x = value
+    def delx(self):
+        del self._x
+    x = property(getx, setx, delx, "I'm the 'x' property.")
+If then c is an instance of C, c.x will invoke the getter, c.x = value will invoke the setter and del c.x the deleter.
+
+If given, doc will be the docstring of the property attribute. Otherwise, 
+the property will copy fget‘s docstring (if it exists). 
+This makes it possible to create read-only properties easily using property() as a decorator:
+
+class Parrot(object):
+    def __init__(self):
+        self._voltage = 100000
+
+    @property
+    def voltage(self):
+        """Get the current voltage."""
+        return self._voltage
+turns the voltage() method into a “getter” for a read-only attribute with the same name.
+
+A property object has getter, setter, 
+and deleter methods usable as decorators that create a copy of the property with 
+the corresponding accessor function set to the decorated function.
+This is best explained with an example:
+
+class C(object):
+    def __init__(self):
+        self._x = None
+
+    @property
+    def x(self):
+        """I'm the 'x' property."""
+        return self._x
+
+    @x.setter
+    def x(self, value):
+        self._x = value
+
+    @x.deleter
+    def x(self):
+        del self._x
+This code is exactly equivalent to the first example. Be sure to give the additional functions 
+the same name as the original property (x in this case.)
+
+The returned property also has the attributes fget, fset, and fdel corresponding to the constructor arguments.
+
+"""
+
